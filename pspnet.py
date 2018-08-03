@@ -13,6 +13,10 @@ from glob import glob
 from python_utils import utils
 from python_utils.preprocessing import preprocess_img
 from keras.utils.generic_utils import CustomObjectScope
+from cityscapes_labels import trainId2label
+from ade20k_labels import ade20k_id2label
+from pascal_voc_labels import voc_id2label
+#import cv2
 
 # These are the means for the ImageNet pretrained ResNet
 DATA_MEAN = np.array([[[123.68, 116.779, 103.939]]])  # RGB order
@@ -148,7 +152,8 @@ if __name__ == "__main__":
                                  'pspnet101_cityscapes',
                                  'pspnet101_voc2012'])
     parser.add_argument('-w', '--weights', type=str, default=None)
-    parser.add_argument('-i', '--input_path', type=str, default='example_images/ade20k.jpg',
+    # parser.add_argument('-i', '--input_path', type=str, default='example_images/ade20k.jpg',
+    parser.add_argument('-i', '--input_path', type=str, default='None',
                         help='Path the input image')
     parser.add_argument('-g', '--glob_path', type=str, default=None,
                         help='Glob path for multiple images')
@@ -158,13 +163,18 @@ if __name__ == "__main__":
     parser.add_argument('--input_size', type=int, default=500)
     parser.add_argument('-f', '--flip', type=bool, default=True,
                         help="Whether the network should predict on both image and flipped image.")
+    parser.add_argument('--seg_person', action="store_true",
+    					help= "whether seg output is only of the crowd mask or not, default True")
+
 
     args = parser.parse_args()
-
     # Handle input and output args
-    images = glob(args.glob_path) if args.glob_path else [args.input_path,]
+    images = glob(args.glob_path+"/*.png") if args.glob_path else [args.input_path,]
+    print (images)
+    # raw_input()
     if args.glob_path:
         fn, ext = splitext(args.output_path)
+
         if ext:
             parser.error("output_path should be a folder for multiple file input")
         if not isdir(args.output_path):
@@ -205,8 +215,12 @@ if __name__ == "__main__":
 
             cm = np.argmax(probs, axis=2)
             pm = np.max(probs, axis=2)
-
+            print ("unique", np.unique(cm))
             color_cm = utils.add_color(cm)
+            
+            #unique classes in img
+            print (np.unique(cm).tolist())
+
             # color cm is [0.0-1.0] img is [0-255]
             alpha_blended = 0.5 * color_cm * 255 + 0.5 * img
 
@@ -218,5 +232,10 @@ if __name__ == "__main__":
 
             misc.imsave(filename + "_seg_read" + ext, cm)
             misc.imsave(filename + "_seg" + ext, color_cm)
+
+            #save in color format relevant to labelmap provided
+            color_corrected_seg = utils.color_class_image(cm,args.model,args.seg_person)
+            misc.imsave(filename + "_corrected_seg" + ext, color_corrected_seg)
+
             misc.imsave(filename + "_probs" + ext, pm)
             misc.imsave(filename + "_seg_blended" + ext, alpha_blended)

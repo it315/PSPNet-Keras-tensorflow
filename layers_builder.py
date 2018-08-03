@@ -276,3 +276,9 @@ def build_pspnet(nb_classes, resnet_layers, input_shape, activation='softmax'):
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
     return model
+
+#TO GET JSON for correct KERAS MODEL
+#model = build_pspnet(nb_classes=19, resnet_layers=101, input_shape=(713, 713), activation='softmax')
+#model = build_pspnet(nb_classes=150, resnet_layers=50, input_shape=(473, 473),activation='softmax')
+#model = build_pspnet(nb_classes=21, resnet_layers=101, input_shape=(473, 473),activation='softmax')
+#print(model.to_json())

@@ -5,36 +5,50 @@ from keras.models import Model
 from cityscapes_labels import trainId2label
 from ade20k_labels import ade20k_id2label
 from pascal_voc_labels import voc_id2label
+#import cv2
+from scipy import misc, ndimage
 
 
-def class_image_to_image(class_id_image, class_id_to_rgb_map):
+def class_image_to_image(class_id_image, class_id_to_rgb_map, seg_person):
+    print ("seg_person", seg_person)
     """Map the class image to a rgb-color image."""
     colored_image = np.zeros(
         (class_id_image.shape[0], class_id_image.shape[1], 3), np.uint8)
     for row in range(class_id_image.shape[0]):
         for col in range(class_id_image.shape[1]):
             try:
-                colored_image[row, col, :] = class_id_to_rgb_map[
-                    int(class_id_image[row, col])].color
+                
+                if seg_person is False:
+                    colored_image[row, col, :] = class_id_to_rgb_map[
+                        int(class_id_image[row, col])].color
+                else:
+                    # print ("show me person only")
+                    if int(class_id_image[row, col]) == 12:
+                        colored_image[row, col, :] = class_id_to_rgb_map[
+                            int(class_id_image[row, col])].color
             except KeyError as key_error:
                 print("Warning: could not resolve classid %s" % key_error)
     return colored_image
 
 
-def color_class_image(class_image, model_name):
+def color_class_image(class_image, model_name, seg_person):
     """Color classed depending on the model used."""
     if 'cityscapes' in model_name:
-        colored_image = class_image_to_image(class_image, trainId2label)
+        colored_image = class_image_to_image(class_image, trainId2label, seg_person)
     elif 'voc' in model_name:
-        colored_image = class_image_to_image(class_image, voc_id2label)
+        colored_image = class_image_to_image(class_image, voc_id2label, seg_person)
     elif 'ade20k' in model_name:
-        colored_image = class_image_to_image(class_image, ade20k_id2label)
+        colored_image = class_image_to_image(class_image, ade20k_id2label, seg_person)
     else:
         colored_image = add_color(class_image)
+
+    # cv2.imwrite("savethis.png", colored_image)
+    # misc.imsave("savethisMISC.png", colored_image)
     return colored_image
 
 
 def add_color(img, num_classes=32):
+    print ("num_classes", num_classes)
     h, w = img.shape
     img_color = np.zeros((h, w, 3))
     for i in range(1, 151):
@@ -47,7 +61,7 @@ def to_color(category):
     """Map each category color a good distance away from each other on the HSV color space."""
     v = (category - 1) * (137.5 / 360)
     return colorsys.hsv_to_rgb(v, 1, 1)
-
+    # return v
 
 def debug(model, data):
     """Debug model by printing the activations in each layer."""
