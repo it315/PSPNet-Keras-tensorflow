@@ -1,3 +1,13 @@
+# Implemenation of PSPNet-Keras-tensorflow for RIPS 2018, team Gumgum.
+The main modification is changing the pspnet.py and utils.py such that it follows the correct color code convention. The class that corresponds to each color can be found in utils/color150.
+
+The installation worked well with the following versions of the packages:
+CUDA 9.0, CUDNN 7.0, TENSORFLOW 1.9, KERAS 2.2, GPU 19?, 4 NIVIDA Titan Xp GPUs, no need for CAFFE, PYTHON3.5, ANACONDA
+PIP Version corresponding to Python 3.5
+
+The initial procedure still holds, with some modifications:
+
+
 # Keras implementation of [PSPNet(caffe)](https://github.com/hszhao/PSPNet)
 
 Implemented Architecture of Pyramid Scene Parsing Network in Keras.
