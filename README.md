@@ -9,12 +9,12 @@ The installation worked well with the following versions of the packages:
 CUDA 9.0, CUDNN 7.0, TENSORFLOW 1.9, KERAS 2.2, GPU 19?, 4 NIVIDA Titan Xp GPUs, no need for CAFFE, PYTHON3.5, ANACONDA,
 PIP Version corresponding to Python 3.5
 
-Other dependencies:
-    - Tensorflow (-gpu)
-    - Keras
-    - numpy
-    - scipy
-    - pycaffe(PSPNet)(optional for converting the weights) 
+Other dependencies: <br />
+    - Tensorflow (-gpu) <br />
+    - Keras <br />
+    - numpy <br />
+    - scipy <br />
+    - pycaffe(PSPNet)(optional for converting the weights)  <br />
     ```bash
     pip install -r requirements.txt --upgrade
     ```
