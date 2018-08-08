@@ -2,7 +2,7 @@
 
 ### Modifications
 
-Some modifications are made to the original code as it was seen that the color code was not respected. The pspnet.py and utils.py are modified such that they follow the correct color code convention found in utils/color150.
+Some modifications are made to the original code as it was seen that the color code was not respected. The `pspnet.py` and `utils.py` are modified such that they follow the correct color code convention found in `utils/color150`.
 
 ### Packages compatibility
 The installation worked well with the following versions of the packages:
@@ -10,11 +10,11 @@ CUDA 9.0, CUDNN 7.0, TENSORFLOW 1.9, KERAS 2.2, GPU 19?, 4 NIVIDA Titan Xp GPUs,
 PIP Version corresponding to Python 3.5
 
 Other dependencies:
-    * Tensorflow (-gpu)
-    * Keras
-    * numpy
-    * scipy
-    * pycaffe(PSPNet)(optional for converting the weights) 
+    - Tensorflow (-gpu)
+    - Keras
+    - numpy
+    - scipy
+    - pycaffe(PSPNet)(optional for converting the weights) 
     ```bash
     pip install -r requirements.txt --upgrade
     ```
