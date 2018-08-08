@@ -72,20 +72,11 @@ List of arguments:
  -ms --multi_scale - Predict on multiscale images
 ```
 ### Keras results:
-![Original](example_images/ade20k.jpg)
-![New](example_results/ade20k_seg.jpg)
-![New](example_results/ade20k_seg_blended.jpg)
-![New](example_results/ade20k_probs.jpg)
-
-![Original](example_images/cityscapes.png)
-![New](example_results/cityscapes_seg.jpg)
-![New](example_results/cityscapes_seg_blended.jpg)
-![New](example_results/cityscapes_probs.jpg)
-
-![Original](example_images/pascal_voc.jpg)
-![New](example_results/pascal_voc_seg.jpg)
-![New](example_results/pascal_voc_seg_blended.jpg)
-![New](example_results/pascal_voc_probs.jpg)
+![Original](example_images/12.png)
+![New](example_results/12_seg.jpg)
+![New](example_results/12_seg_blended.jpg)
+![New](example_results/12_seg_read.jpg)
+![New](example_results/12_corrected_seg.jpg)
 
 
 ### Implementation details
