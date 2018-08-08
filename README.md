@@ -73,10 +73,11 @@ List of arguments:
 ```
 ### Keras results:
 ![Original](example_images/12.png)
-![New](example_results/12_seg.jpg)
-![New](example_results/12_seg_blended.jpg)
-![New](example_results/12_seg_read.jpg)
-![New](example_results/12_corrected_seg.jpg)
+![New](example_images/12_seg.jpg)
+![New](example_images/12_seg_blended.jpg)
+![New](example_images/12_seg_read.jpg)
+The correct color-class match output
+![New](example_images/12_corrected_seg.jpg)
 
 
 ### Implementation details
