@@ -1,16 +1,39 @@
 # Implemenation of PSPNet-Keras-tensorflow for RIPS 2018, team Gumgum.
-The main modification is changing the pspnet.py and utils.py such that it follows the correct color code convention. The class that corresponds to each color can be found in utils/color150.
 
+# Modifications
+
+Some modifications were made to the original code as it was seen that the color code was not respected. The pspnet.py and utils.py were modified such that they follow the correct color code convention in utils/color150.
+
+# Packages compatibility
 The installation worked well with the following versions of the packages:
 CUDA 9.0, CUDNN 7.0, TENSORFLOW 1.9, KERAS 2.2, GPU 19?, 4 NIVIDA Titan Xp GPUs, no need for CAFFE, PYTHON3.5, ANACONDA
 PIP Version corresponding to Python 3.5
 
-The initial procedure still holds, with some modifications:
 
+The initial procedure from Vladkryvoruchko/PSPNet-Keras-tensorflow still holds, with some modifications:
 
-# Keras implementation of [PSPNet(caffe)](https://github.com/hszhao/PSPNet)
+1. If caffe is installed and the line 'python weight_converter.py <path to .prototxt> <path to .caffemodel>' is run, then probably there is no need to add anything. 
+   
+2. If not, the following are needed: <br />
+* in `weights/caffe` directory, the `.prototxt` and `.caffemodel` are required for each of the three models 'pspnet50_ade20k', 'pspnet101_cityscapes', 'pspnet101_voc2012':<br />
+The `.caffemodel` can be obtained from the PSPNet (https://github.com/hszhao/PSPNet) or from: <br />
+pspnet50_ADE20K.caffemodel: https://drive.google.com/open?id=0BzaU285cX7TCN1R3QnUwQ0hoMTA  <br />
+pspnet101_VOC2012.caffemodel: https://drive.google.com/open?id=0BzaU285cX7TCNVhETE5vVUdMYk0  <br />
+pspnet101_cityscapes.caffemodel: https://drive.google.com/open?id=0BzaU285cX7TCT1M3TmNfNjlUeEU   <br />
+The `.prototxt` models can be found under `PSPNet\evaluation\prototxt`.
+* Already converted weights (`.json and .h5`) can be downloaded as described in PSPNet-Keras-Tensorflow and need to be put into `/weights/keras`
+* The `.npy` that need to go into the `wights/npy` directory can be obtained from:
+https://www.dropbox.com/s/ms8afun494dlh1t/pspnet50_ade20k.npy?dl=0
+https://www.dropbox.com/s/b21j6hi6qql90l0/pspnet101_cityscapes.npy?dl=0
+https://www.dropbox.com/s/xkjmghsbn6sfj9k/pspnet101_voc2012.npy?dl=0
 
-Implemented Architecture of Pyramid Scene Parsing Network in Keras.
+Also, the downloaded trained models (`.caffemodel`) need to be put in `evaluation/model`.
+
+***
+
+# Run
+python3.5 pspnet.py -m pspnet50_ade20k -i nameofinput.jpg -o nameofoutput.jpg
+
 
 ### Setup
 1. Install dependencies:
@@ -24,7 +47,6 @@ Implemented Architecture of Pyramid Scene Parsing Network in Keras.
     ```
 2. Converted trained weights are needed to run the network.
 Weights(in ```.h5 .json``` format) have to be downloaded and placed into directory ``` weights/keras ```
-
 
 Already converted weights can be downloaded here:
 
